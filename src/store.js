@@ -1,6 +1,7 @@
 import { fetchPokemonsCount, fetchPokemonsList } from './api'
 
-function noop () {}
+function noop () {
+}
 
 export function createStore () {
   return {
@@ -20,8 +21,13 @@ export function createStore () {
         return res.data
       })
     },
-    get getPokemons () {
-      return this.pokemonsList
+    setPokemnsCount (value) {
+      this.pokemonsCount = value
+    },
+    setActualPage (value) {
+      this.actualPage = value
+      this.pagStart = 0
+      this.pagEnd = 20
     },
     setPerPage (value) {
       this.perPage = +value

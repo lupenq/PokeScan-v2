@@ -17,6 +17,6 @@ export const CardList = observer(({ data }) => {
     pagEnd
   } = store
   return (
-    data.slice(pagStart, pagEnd).map(poke => <PokeCard key={poke.name} pokemon={poke}/>)
+    data.slice(pagStart, pagEnd).map(poke => <PokeCard key={poke.pokeId} pokemon={poke}/>)
   )
 })

@@ -15,7 +15,9 @@ export const App = observer(() => {
     pokemonsCount,
     fetchPokemons,
     getPokemons,
-    getCount
+    getCount,
+    setPokemnsCount,
+    setActualPage
   } = store
 
   const [actualData, setActualData] = useState(pokemonsList)
@@ -30,10 +32,15 @@ export const App = observer(() => {
   }, [pokemonsList])
 
   const searchByName = (value) => {
+    setActualPage(1)
     setActualData(pokemonsList.filter(a => {
       return a.name.match(value)
     }))
   }
+
+  useEffect(() => {
+    setPokemnsCount(actualData.length)
+  }, [actualData])
 
   return (
     <>
