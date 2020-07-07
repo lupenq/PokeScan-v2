@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { PokeCard } from '../PokeCard/PokeCard'
 import { useDataStore } from '../../context'
 import { observer } from 'mobx-react-lite'
@@ -14,9 +14,26 @@ export const CardList = observer(({ data }) => {
     fetchPokemons,
     getPokemons,
     pagStart,
-    pagEnd
+    pagEnd,
+    getCount,
+    setPokemnsCount,
+    setActualPage,
+    searchValue
   } = store
+
+  const [actualData, setActualData] = useState(data)
+
+  useEffect(() => {
+    setActualData(data)
+  }, [data])
+
+  useEffect(() => {
+    setPokemnsCount(actualData.length)
+  }, [actualData])
+
   return (
-    data.slice(pagStart, pagEnd).map(poke => <PokeCard key={poke.pokeId} pokemon={poke}/>)
+    actualData
+      .filter(a => a.name.match(searchValue))
+      .slice(pagStart, pagEnd).map(poke => <PokeCard key={poke.pokeId} pokemon={poke}/>)
   )
 })

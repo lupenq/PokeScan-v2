@@ -21,7 +21,8 @@ export const Header = observer(({ search }) => {
 
   return (
     <div className={styles.header}>
-      <Search searchMethod={search}/>
+      {/*<Search searchMethod={search}/>*/}
+      <Search />
       <Logo />
       {/*<select name="pertitle" id="pertitle" onChange={(e) => setPerPage(e.target.value)}>*/}
       {/*  <option value="20">20</option>*/}

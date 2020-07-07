@@ -44,6 +44,17 @@ export function createStore () {
     },
     async getCount () {
       this.pokemonsCount = await fetchPokemonsCount().then(res => res.data)
-    }
+    },
+    searchByName (value) {
+      this.setActualPage(1)
+      return value.filter(a => {
+        return a.name.match(this.searchValue)
+      })
+    },
+    setSearchValue (value) {
+      this.setActualPage(1)
+      this.searchValue = value
+    },
+    searchValue: ''
   }
 }

@@ -20,33 +20,34 @@ export const App = observer(() => {
     setActualPage
   } = store
 
-  const [actualData, setActualData] = useState(pokemonsList)
+  // const [actualData, setActualData] = useState(pokemonsList)
 
   useEffect(() => {
     fetchPokemons()
     getCount()
   }, [])
 
-  useEffect(() => {
-    setActualData(pokemonsList)
-  }, [pokemonsList])
+  // useEffect(() => {
+  //   setActualData(pokemonsList)
+  // }, [pokemonsList])
 
-  const searchByName = (value) => {
-    setActualPage(1)
-    setActualData(pokemonsList.filter(a => {
-      return a.name.match(value)
-    }))
-  }
+  // const searchByName = (value) => {
+  //   setActualPage(1)
+  //   setActualData(pokemonsList.filter(a => {
+  //     return a.name.match(value)
+  //   }))
+  // }
 
-  useEffect(() => {
-    setPokemnsCount(actualData.length)
-  }, [actualData])
+  // useEffect(() => {
+  //   setPokemnsCount(actualData.length)
+  // }, [actualData])
 
   return (
     <>
-      <Header search={searchByName}/>
+      {/*<Header search={searchByName}/>*/}
+      <Header />
       <div className={styles.container}>
-        {loading ? <Loader count={perPage}/> : <CardList data={actualData}/>}
+        {loading ? <Loader count={perPage}/> : <CardList data={pokemonsList}/>}
       </div>
     </>
   )
