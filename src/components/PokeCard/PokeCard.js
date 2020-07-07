@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import styles from './PokeCard.module.sass'
+import noImage from '../../no_image.svg'
 
 export const PokeCard = observer(({ pokemon }) => {
   const [open, setOpen] = useState(false)
@@ -61,7 +62,7 @@ export const PokeCard = observer(({ pokemon }) => {
         <div className={styles.front}>
           <div className={styles.header} onClick={() => setOpen(!open)}>
             <div className={styles.header_top}>
-              <img src={pokemon.spritesFront} alt="" className={styles.image}/>
+              <img src={pokemon.spritesFront ? pokemon.spritesFront : noImage} alt="" className={styles.image}/>
               <h2 className={styles.name}>{capitalizeFirstLetter(pokemon.name)}</h2>
             </div>
 
@@ -85,7 +86,7 @@ export const PokeCard = observer(({ pokemon }) => {
         <div className={styles.back}>
           <div className={styles.header} onClick={() => setOpen(!open)}>
             <div className={styles.header_top}>
-              <img src={pokemon.spritesBack} alt="" className={styles.image}/>
+              <img src={pokemon.spritesBack ? pokemon.spritesBack : noImage} alt="" className={styles.image}/>
               <h2 className={styles.name}>{capitalizeFirstLetter(pokemon.name)}</h2>
             </div>
           </div>

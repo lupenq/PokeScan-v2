@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { PokeCard } from '../PokeCard/PokeCard'
 import { useDataStore } from '../../context'
 import { observer } from 'mobx-react-lite'
+import styles from './CardList.module.sass'
 
 export const CardList = observer(({ data }) => {
   const store = useDataStore()
   const {
-    pokemonsList,
     perPage,
-    prevPage,
-    loading,
-    pokemonsCount,
-    fetchPokemons,
-    getPokemons,
-    pagStart,
-    pagEnd,
-    getCount,
+    actualPage,
     setPokemnsCount,
-    setActualPage,
     searchValue
   } = store
 
-  const [actualData, setActualData] = useState(data)
+  const filterData = data.filter((a) => a.name.match(searchValue))
 
-  useEffect(() => {
-    setActualData(data)
-  }, [data])
+  setPokemnsCount(filterData.length)
 
-  useEffect(() => {
-    setPokemnsCount(actualData.length)
-  }, [actualData])
+  const actualData = filterData
+    .slice((actualPage - 1) * perPage, actualPage * perPage)
+    .map((poke) => (
+      <li key={poke.pokeId} >
+        <PokeCard pokemon={poke} />
+      </li>
+    ))
 
-  return (
-    actualData
-      .filter(a => a.name.match(searchValue))
-      .slice(pagStart, pagEnd).map(poke => <PokeCard key={poke.pokeId} pokemon={poke}/>)
-  )
+  return <ul className={styles.list_wrap}>{actualData}</ul>
 })

@@ -30,6 +30,7 @@ export function createStore () {
       this.pagEnd = 20
     },
     setPerPage (value) {
+      this.setActualPage(1)
       this.perPage = +value
     },
     pagLeft () {

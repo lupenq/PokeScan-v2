@@ -6,8 +6,7 @@ import { useDataStore } from '../../context'
 export const Search = observer(({ searchMethod }) => {
   const store = useDataStore()
   const {
-    setSearchValue,
-    searchValue
+    setSearchValue
   } = store
 
   const handleSearch = (e) => {
