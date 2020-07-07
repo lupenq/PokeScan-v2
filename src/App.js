@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import styles from './App.module.sass'
+import { observer } from 'mobx-react-lite'
+import { useDataStore } from './context'
+import { CardList } from './components/CardList/CardList'
+import { Header } from './components/Header/Header'
 
-function App() {
+export const App = observer(() => {
+  const store = useDataStore()
+  const {
+    pokemonsList,
+    perTitle,
+    loading,
+    pokemonsCount,
+    fetchPokemons,
+    getPokemons
+  } = store
+
+  const [actualData, setActualData] = useState(pokemonsList)
+
+  useEffect(() => {
+    fetchPokemons()
+  }, [])
+
+  useEffect(() => {
+    setActualData(pokemonsList)
+  }, [pokemonsList])
+
+  const searchByName = (value) => {
+    setActualData(pokemonsList.filter(a => {
+      return a.name.match(value)
+    }))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+    <>
+      <Header search={searchByName}/>
+      <div className={styles.container}>
+        <CardList data={actualData}/>
+      </div>
+    </>
+  )
+})
