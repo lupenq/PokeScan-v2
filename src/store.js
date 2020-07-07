@@ -1,8 +1,5 @@
 import { fetchPokemonsCount, fetchPokemonsList } from './api'
 
-function noop () {
-}
-
 export function createStore () {
   return {
     pokemonsList: [],
@@ -13,6 +10,7 @@ export function createStore () {
     actualPage: 1,
     loading: false,
     pokemonsCount: 0,
+    searchValue: '',
     async fetchPokemons () {
       this.loading = true
 
@@ -55,7 +53,6 @@ export function createStore () {
     setSearchValue (value) {
       this.setActualPage(1)
       this.searchValue = value
-    },
-    searchValue: ''
+    }
   }
 }

@@ -10,13 +10,9 @@ export const Pagination = observer(() => {
 
   const store = useDataStore()
   const {
-    pokemonsList,
     perPage,
-    prevPage,
     loading,
     pokemonsCount,
-    fetchPokemons,
-    getPokemons,
     pagLeft,
     pagRight,
     pagStart,
