@@ -16,16 +16,53 @@ export const PokeCard = observer(({ pokemon }) => {
     setStats(result)
   }, [pokemon.stats])
 
+  const createCardBgColor = () => {
+    const colorsAndTypes = {
+      normal: '#A8A878',
+      fighting: '#C03028',
+      flying: '#A890F0',
+      poison: '#A040A0',
+      ground: '#E0C068',
+      rock: '#B8A038',
+      bug: '#A8B820',
+      ghost: '#705898',
+      steel: '#B8B8D0',
+      fire: '#F08030',
+      water: '#6890F0',
+      grass: '#78C850',
+      electric: '#F8D030',
+      psychic: '#F85888',
+      ice: '#98D8D8',
+      dragon: '#7038F8',
+      dark: '#705848',
+      fairy: '#EE99AC'
+    }
+
+    if (pokemon.types.length >= 2) {
+      return pokemon.types
+        .map(a => {
+          return colorsAndTypes[a]
+        })
+        .join(', ')
+    } else {
+      return colorsAndTypes[pokemon.types[0]]
+    }
+  }
+
+  const capitalizeFirstLetter = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1)
+  }
+
   return (
     <div className={`${styles.container} ${open ? styles.hover : ''}`}>
       <div className={styles.card} style={{
-        // background: bgColor.match(', ') ? `linear-gradient(60deg, ${bgColor})` : bgColor
+        background: pokemon.types.length >= 2 ? `linear-gradient(60deg, ${createCardBgColor()})` : createCardBgColor()
       }}>
         <div className={styles.front}>
           <div className={styles.header} onClick={() => setOpen(!open)}>
             <div className={styles.header_top}>
               <img src={pokemon.spritesFront} alt="" className={styles.image}/>
-              <h2 className={styles.name}>{pokemon.name}</h2>
+              <h2 className={styles.name}>{capitalizeFirstLetter(pokemon.name)}</h2>
             </div>
 
             <div>
@@ -49,7 +86,7 @@ export const PokeCard = observer(({ pokemon }) => {
           <div className={styles.header} onClick={() => setOpen(!open)}>
             <div className={styles.header_top}>
               <img src={pokemon.spritesBack} alt="" className={styles.image}/>
-              <h2 className={styles.name}>{pokemon.name}</h2>
+              <h2 className={styles.name}>{capitalizeFirstLetter(pokemon.name)}</h2>
             </div>
           </div>
           <table className={styles.table}>

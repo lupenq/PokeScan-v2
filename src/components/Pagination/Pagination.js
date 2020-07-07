@@ -16,7 +16,9 @@ export const Pagination = observer(() => {
     getPokemons,
     pagLeft,
     pagRight,
-    pagStart
+    pagStart,
+    pagEnd,
+    actualPage
   } = store
 
   return (
@@ -32,8 +34,12 @@ export const Pagination = observer(() => {
           pagLeft()
         }}
       />
+      <p className={styles.numbers}>{actualPage} of {Math.ceil(pokemonsCount / perPage)}</p>
       <RightCircleOutlined
-        style={{ pointerEvents: loading && 'none' }}
+        style={{
+          pointerEvents: loading || pagEnd >= pokemonsCount ? 'none' : null,
+          opacity: pagEnd >= pokemonsCount && 0.2
+        }}
         component='button'
         className={styles.button}
         onClick={() => {

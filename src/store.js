@@ -1,4 +1,4 @@
-import { fetchPokemonsList } from './api'
+import { fetchPokemonsCount, fetchPokemonsList } from './api'
 
 function noop () {}
 
@@ -9,6 +9,7 @@ export function createStore () {
     prevPage: 0,
     pagStart: 0,
     pagEnd: 20,
+    actualPage: 1,
     loading: false,
     pokemonsCount: 0,
     async fetchPokemons () {
@@ -28,15 +29,15 @@ export function createStore () {
     pagLeft () {
       this.pagStart = this.pagStart - this.perPage
       this.pagEnd = this.pagEnd - this.perPage
+      this.actualPage--
     },
     pagRight () {
       this.pagStart = this.pagStart + this.perPage
       this.pagEnd = this.pagEnd + this.perPage
+      this.actualPage++
     },
-    token: null,
-    userId: null,
-    login: noop,
-    logout: noop,
-    isAuthenticated: false
+    async getCount () {
+      this.pokemonsCount = await fetchPokemonsCount().then(res => res.data)
+    }
   }
 }

@@ -4,22 +4,25 @@ import { observer } from 'mobx-react-lite'
 import { useDataStore } from './context'
 import { CardList } from './components/CardList/CardList'
 import { Header } from './components/Header/Header'
+import { Loader } from './components/Loader/Loader'
 
 export const App = observer(() => {
   const store = useDataStore()
   const {
     pokemonsList,
-    perTitle,
+    perPage,
     loading,
     pokemonsCount,
     fetchPokemons,
-    getPokemons
+    getPokemons,
+    getCount
   } = store
 
   const [actualData, setActualData] = useState(pokemonsList)
 
   useEffect(() => {
     fetchPokemons()
+    getCount()
   }, [])
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export const App = observer(() => {
     <>
       <Header search={searchByName}/>
       <div className={styles.container}>
-        <CardList data={actualData}/>
+        {loading ? <Loader count={perPage}/> : <CardList data={actualData}/>}
       </div>
     </>
   )

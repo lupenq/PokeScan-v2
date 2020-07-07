@@ -21,3 +21,13 @@ export const fetchPokemon = async (id) => {
     console.log(e)
   }
 }
+
+export const fetchPokemonsCount = async () => {
+  try {
+    const data = await axios.get(`${url}/api/pokemons/count`)
+
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+}
